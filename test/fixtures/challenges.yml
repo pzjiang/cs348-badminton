@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  challenger_id: 
+  receiver_id: 
+  status: 
+  game_id: 
+  date_issued: 
+  game_date: 
+
+two:
+  challenger_id: 
+  receiver_id: 
+  status: 
+  game_id: 
+  date_issued: 
+  game_date: 

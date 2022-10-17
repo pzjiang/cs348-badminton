@@ -10,7 +10,76 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_14_001545) do
+ActiveRecord::Schema.define(version: 2022_10_17_032934) do
+
+  create_table "challenges", force: :cascade do |t|
+    t.integer "challenger_id"
+    t.integer "receiver_id"
+    t.string "status"
+    t.integer "game_id"
+    t.datetime "date_issued"
+    t.datetime "game_date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "game_attendances", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "winner_id"
+    t.integer "loser_id"
+    t.integer "winner_score"
+    t.integer "loser_score"
+    t.datetime "date"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "join_reqs", force: :cascade do |t|
+    t.string "req_name"
+    t.string "req_role"
+    t.integer "team_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "team_id"
+    t.text "body"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "practice_attendances", force: :cascade do |t|
+    t.integer "practice_id"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "practices", force: :cascade do |t|
+    t.integer "team_id"
+    t.datetime "date"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.text "name"
+    t.string "location"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "testers", force: :cascade do |t|
     t.string "title"

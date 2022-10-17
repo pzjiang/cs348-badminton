@@ -1,0 +1,2 @@
+class JoinReq < ApplicationRecord
+end

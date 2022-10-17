@@ -1,0 +1,2 @@
+class GameAttendance < ApplicationRecord
+end

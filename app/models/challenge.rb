@@ -1,5 +1,8 @@
 class Challenge < ApplicationRecord
-    validates :challenger_id, presence: true
+    # There is a point when no challenger_id exists because it must be populated automatically
+    # validates :challenger_id, presence: true
+
+    # Team cannot challenge itself
     validates :receiver_id, presence: true, comparison: {other_than: :challenger_id}, message: "Team cannot challenge itself"
 
     # Enforce valid status options

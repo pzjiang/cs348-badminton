@@ -18,7 +18,7 @@ class GamesController < ApplicationController
     def create
         @game = Game.new(game_params)
 
-        if @game.save && (Current_user.role == 'Referee' || Current_user.role == 'System Admin')
+        if (Current_user.role == 'Referee' || Current_user.role == 'System Admin') && @game.save
             # On successful save operation, redirect to the new game's page
             redirect_to @game
         else
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
     def update
         @game = Game.find(params[:id])
 
-        if @game.save && (Current_user.role == 'Referee' || Current_user.role == 'System Admin')
+        if (Current_user.role == 'Referee' || Current_user.role == 'System Admin') && @game.save
             # On successful update operation, redirect to the game's page
             redirect_to @game
         else

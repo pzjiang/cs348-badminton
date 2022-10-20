@@ -14,12 +14,12 @@ class ChallengesController < ApplicationController
         end
     end
 
-    # Create a new challenge (from challenges#new)
+    # Create a new challenge (from challenges#new). Only available to team admins.
     def create
         @challenge = Challenge.new(challenge_params)
         @challenge.challenger_id = Current_user.team_id # Populate challenger_id
 
-        if @challenge.save && Current_user.role == 'Team Admin'
+        if Current_user.role == 'Team Admin' && @challenge.save
             # On successful save operation, redirect to the new challenge's page
             redirect_to @challenge
         else
@@ -45,7 +45,7 @@ class ChallengesController < ApplicationController
             @challenge.challenger_id = Current_user.team_id
         end
 
-        if @challenge.save && (Current_user.role == 'Team Admin' || Current_user.role == 'System Admin')
+        if (Current_user.role == 'Team Admin' || Current_user.role == 'System Admin') && @challenge.save
             # On successful update operation, redirect to the challenge's page
             redirect_to @challenge
         else

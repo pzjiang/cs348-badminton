@@ -87,6 +87,7 @@ GEM
       responders
       warden (~> 1.2.3)
     erubi (1.11.0)
+    ffi (1.15.5)
     ffi (1.15.5-x64-mingw32)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -108,6 +109,8 @@ GEM
     msgpack (1.6.0)
     nio4r (2.5.8)
     nokogiri (1.13.8-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.13.8-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     public_suffix (5.0.0)
@@ -156,6 +159,8 @@ GEM
     rubyzip (2.3.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sassc (2.4.0-x64-mingw32)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -178,6 +183,7 @@ GEM
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
     sqlite3 (1.5.3-x64-mingw32)
+    sqlite3 (1.5.3-x86_64-linux)
     thor (1.2.1)
     tilt (2.0.11)
     turbolinks (5.2.1)
@@ -213,6 +219,7 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)

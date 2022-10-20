@@ -4,7 +4,19 @@ Rails.application.routes.draw do
   root to: "home#index"
   # devise_for :users, controllers: { sessions: 'users/sessions' }
 
-  # Create default resource sets for games, challenges
+  # Create default resource sets for all the tables
   resources :games
   resources :challenges
+  resources :team
+  resources :practice
+  resources :practice_attendances
+  resources :game_attendances
+  resources :messages
+
+  # TODO
+  # game_attendances
+  # practice_attendances
+
+  # user
+  # join_req
 end

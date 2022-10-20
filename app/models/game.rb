@@ -1,4 +1,7 @@
 class Game < ApplicationRecord
+
+    has_many :game_attendances, dependent: :destroy
+
     # Ensure that the game is between two teams and that the loser has a lower score
     validates :winner_id, presence: true
     validates :loser_id, presence: true, comparison: {other_than: :winner_id}, message: "Losing team cannot be the same as winning team"

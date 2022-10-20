@@ -10,4 +10,8 @@ class Challenge < ApplicationRecord
 
     validates :date_issued, presence: true
     validates :game_date, presence: true
+
+    def active?
+        status=='Pending'
+    end
 end

@@ -6,15 +6,20 @@ class ChallengesController < ApplicationController
 
     # Enter data for a new challenge
     def new
-        # Create a new instance of a challenge
-        @challenge = Challenge.new
+        if Current_user.role == 'Team Admin'
+            # Create a new instance of a challenge
+            @challenge = Challenge.new
+        else
+            redirect_to :index
+        end
     end
 
     # Create a new challenge (from challenges#new)
     def create
         @challenge = Challenge.new(challenge_params)
+        @challenge.challenger_id = Current_user.team_id # Populate challenger_id
 
-        if @article.save
+        if @challenge.save && Current_user.role == 'Team Admin'
             # On successful save operation, redirect to the new challenge's page
             redirect_to @challenge
         else
@@ -25,14 +30,22 @@ class ChallengesController < ApplicationController
 
     # Edit an existing challenge
     def edit
-        @challenge = Challenge.find(params[:id])
+        # Only these users can modify challenges
+        if (Current_user.role == 'Team Admin' && Current_user.team_id == challenger_id) || Current_user.role == 'System Admin'
+            @challenge = Challenge.find(params[:id])
+        else
+            redirect_to :index
+        end
     end
     
     # Update an existing challenge (from challenges#edit)
     def update
         @challenge = Challenge.find(params[:id])
+        if Current_user.role == 'Team Admin'
+            @challenge.challenger_id = Current_user.team_id
+        end
 
-        if @article.save
+        if @challenge.save && (Current_user.role == 'Team Admin' || Current_user.role == 'System Admin')
             # On successful update operation, redirect to the challenge's page
             redirect_to @challenge
         else
@@ -46,10 +59,24 @@ class ChallengesController < ApplicationController
         @challenge = Challenge.find(params[:id])
     end
 
-    # Delete an existing challenge (for a DELETE request)
+    # Delete an existing challenge (for a DELETE request) or withdraw/reject a challenge
     def destroy
         @challenge = Challenge.find(params[:id])
-        @challenge.destroy
+        # System admins can fully delete challenges
+        if Current_user.role == 'System Admin'
+            @challenge.destroy
+        # Team admins can reject or withdraw a challenge
+        elsif Current_user.role == 'Team Admin'
+            if Current_user.team_id == challenger_id
+                @challenge.status = 'Withdrawn'
+            elsif Current_user.team_id == receiver_id
+                @challenge.status = 'Rejected'
+            else
+                redirect_to :index
+            end
+            @challenge.save
+            redirect_to @challenge
+        end
 
         # Redirect to the challenges index
         redirect_to :index

@@ -6,15 +6,19 @@ class GamesController < ApplicationController
 
     # Enter data for a new game
     def new
-        # Create a new instance of a game
-        @game = Game.new
+        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+            # Create a new instance of a game
+            @game = Game.new
+        else
+            redirect_to :index
+        end
     end
 
     # Create a new game (from games#new)
     def create
         @game = Game.new(game_params)
 
-        if @article.save
+        if @game.save && (Current_user.role == 'Referee' || Current_user.role == 'System Admin')
             # On successful save operation, redirect to the new game's page
             redirect_to @game
         else
@@ -25,14 +29,18 @@ class GamesController < ApplicationController
 
     # Edit an existing game
     def edit
-        @game = Game.find(params[:id])
+        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+            @game = Game.find(params[:id])
+        else
+            redirect_to :index
+        end
     end
     
     # Update an existing game (from games#edit)
     def update
         @game = Game.find(params[:id])
 
-        if @article.save
+        if @game.save && (Current_user.role == 'Referee' || Current_user.role == 'System Admin')
             # On successful update operation, redirect to the game's page
             redirect_to @game
         else
@@ -48,8 +56,10 @@ class GamesController < ApplicationController
 
     # Delete an existing game (for a DELETE request)
     def destroy
-        @game = Game.find(params[:id])
-        @game.destroy
+        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+            @game = Game.find(params[:id])
+            @game.destroy
+        end
 
         # Redirect to the games index
         redirect_to :index

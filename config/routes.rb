@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :messages
 
   # TODO
-  # game_attendances
-  # practice_attendances
 
   # user
   # join_req

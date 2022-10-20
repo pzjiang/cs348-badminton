@@ -19,7 +19,7 @@ class MessagesController < ApplicationController
     # Create a new message (from messages#new)
     def create
         @message = Message.new(message_params)
-        @message.user_id = Current_user.user_id
+        @message.user_id = Current_user.id
         
         # Global messages use team id 0. Players and team admins can only post to global or to their own channel; referees and sysadmins can post anywhere
         if (@message.team_id != 0 && (Current_user.role == 'Player' || Current_user.role == 'Team Admin'))
@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
     def update
         @message = Message.find(params[:id])
 
-        if (Current_user.role != 'Player' && Current_user.user_id == @message.user_id) && @message.save
+        if (Current_user.role != 'Player' && Current_user.id == @message.user_id) && @message.save
             # On successful update operation, redirect to the message's own page
             redirect_to @message
         else
@@ -76,7 +76,7 @@ class MessagesController < ApplicationController
 
         if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
             @message.status = 'Deleted by Admin'
-        elsif Current_user.user_id == @message.user_id
+        elsif Current_user.id == @message.user_id
             @message.status = 'Deleted'
         end
 

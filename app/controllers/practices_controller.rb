@@ -20,9 +20,9 @@ class PracticesController < ApplicationController
 
     # Create a new practice (from practices#new)
     def create
-        @team = Current_user.team_id
+        @teamid = Current_user.team_id
         @practice = @team.practices.create(practice_params)
-        @practice.team_id = @team.team_id
+        @practice.team_id = @teamid
 
         if (Current_user.role == 'Team Admin') && @practice.save
             # On successful save operation, redirect to the new practice's page

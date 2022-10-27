@@ -1,1 +1,25 @@
 <h1> Team creation </h1>
+
+
+<%= form_with(model: @team) do |form| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this attend from being saved:</h2>
+
+      <ul>
+        <% @team.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br>
+
+
+    <div>
+        <%= form.submit "Send Message", class:"btn btn-primary" %>
+    </div>
+
+
+<% end %>

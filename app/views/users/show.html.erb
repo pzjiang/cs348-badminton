@@ -1,0 +1,22 @@
+<h1> Profile page for users</h1>
+
+
+<br>
+<%= current_user.id%>
+<br>
+<%= current_user.role%>
+<br>
+<%= current_user.username%>
+<br>
+<%= current_user.email%>
+
+<br>
+
+<%= link_to "home page", "/", class: "btn btn-sucess" %>
+
+
+<%= form_with scope: :patch, url: :change_role do |form| %>
+    <%= form.text_field :role %>
+    <input name="_method" type="hidden" value="put" />
+    <%= form.submit%>
+<%end%>

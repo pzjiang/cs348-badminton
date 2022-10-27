@@ -8,6 +8,8 @@ class PracticesController < ApplicationController
         end
     end
 
+    #display team practices
+
     # Enter data for a new practice
     def new
         if current_user.role == 'Team Admin'

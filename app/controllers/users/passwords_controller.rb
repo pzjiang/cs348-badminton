@@ -2,6 +2,7 @@
 
 class Users::PasswordsController < Devise::PasswordsController
   # GET /resource/password/new
+  skip_before_action :require_login
   def new
     super
   end

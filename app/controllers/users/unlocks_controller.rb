@@ -2,6 +2,7 @@
 
 class Users::UnlocksController < Devise::UnlocksController
   # GET /resource/unlock/new
+  # skip_before_action :require_login
   # def new
   #   super
   # end

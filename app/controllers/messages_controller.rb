@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
     # Display all messages
     def index
         # The universal index of messages is only for referees and admins
-        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+        if current_user.role == 'Referee' || current_user.role == 'System Admin'
             @messages = Message.all
         # Everyone else is sent to root
         else
@@ -19,11 +19,11 @@ class MessagesController < ApplicationController
     # Create a new message (from messages#new)
     def create
         @message = Message.new(message_params)
-        @message.user_id = Current_user.id
+        @message.user_id = current_user.id
         
         # Global messages use team id 0. Players and team admins can only post to global or to their own channel; referees and sysadmins can post anywhere
-        if (@message.team_id != 0 && (Current_user.role == 'Player' || Current_user.role == 'Team Admin'))
-            @message.team_id = Current_user.team_id
+        if (@message.team_id != 0 && (current_user.role == 'Player' || current_user.role == 'Team Admin'))
+            @message.team_id = current_user.team_id
         end
         
         # There are no role restrictions on sending messages in general
@@ -38,7 +38,7 @@ class MessagesController < ApplicationController
 
     # Messages can be edited by non-players
     def edit
-        if Current_user.role != 'Player'
+        if current_user.role != 'Player'
             @message = Message.find(params[:id])
         else
             redirect_to :index
@@ -49,7 +49,7 @@ class MessagesController < ApplicationController
     def update
         @message = Message.find(params[:id])
 
-        if (Current_user.role != 'Player' && Current_user.id == @message.user_id) && @message.save
+        if (current_user.role != 'Player' && current_user.id == @message.user_id) && @message.save
             # On successful update operation, redirect to the message's own page
             redirect_to @message
         else
@@ -62,7 +62,7 @@ class MessagesController < ApplicationController
     def show
         @message = Message.find(params[:id])
         # Admins, referees, and members of the correct team can access messages. Global messages are accessible to anyone.
-        if (Current_user.role == 'System Admin' || Current_user.role == 'Referee' || Current_user.team_id == @message.team_id || @message.team_id == 0)
+        if (current_user.role == 'System Admin' || current_user.role == 'Referee' || current_user.team_id == @message.team_id || @message.team_id == 0)
             @message = Message.find(params[:id])
         # If the user has the wrong permissions
         else
@@ -74,9 +74,9 @@ class MessagesController < ApplicationController
     def destroy
         @message = Message.find(params[:id])
 
-        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+        if current_user.role == 'Referee' || current_user.role == 'System Admin'
             @message.status = 'Deleted by Admin'
-        elsif Current_user.id == @message.user_id
+        elsif current_user.id == @message.user_id
             @message.status = 'Deleted'
         end
 

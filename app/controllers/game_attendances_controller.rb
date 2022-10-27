@@ -4,7 +4,7 @@ class GameAttendancesController < ApplicationController
         @game = Game.find(params[:game_id])
         @game_attendance = @game.game_attendances.create(game_attendance_params)
 
-        if (Current_user.role == 'Team Admin' && Current_user.team_id == @game.team_id) && @game_attendance.save
+        if (current_user.role == 'Team Admin' && current_user.team_id == @game.team_id) && @game_attendance.save
             # On successful save operation, redirect to the game page
             redirect_to @game
         else
@@ -20,7 +20,7 @@ class GameAttendancesController < ApplicationController
         @game = Game.find(params[:game_id])
         @game_attendance = @game.game_attendances.find(params[:id])
         
-        if ((Current_user.team_id == @game.team_id && Current_user.role == 'Team Admin'))
+        if ((current_user.team_id == @game.team_id && current_user.role == 'Team Admin'))
             @game_attendance.destroy
         end
 

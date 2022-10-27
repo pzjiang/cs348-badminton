@@ -1,7 +1,7 @@
 class PracticesController < ApplicationController
     # Display all practices. Only visible for admins and referees.
     def index
-        if Current_user.role == 'System Admin' || Current_user.role == 'Referee'
+        if current_user.role == 'System Admin' || current_user.role == 'Referee'
             @practices = Practice.all
         else
             redirect_to root_path
@@ -10,7 +10,7 @@ class PracticesController < ApplicationController
 
     # Enter data for a new practice
     def new
-        if Current_user.role == 'Team Admin'
+        if current_user.role == 'Team Admin'
             # Create a new instance of a practice
             @practice = Practice.new
         else
@@ -20,11 +20,11 @@ class PracticesController < ApplicationController
 
     # Create a new practice (from practices#new)
     def create
-        @teamid = Current_user.team_id
+        @teamid = current_user.team_id
         @practice = @team.practices.create(practice_params)
         @practice.team_id = @teamid
 
-        if (Current_user.role == 'Team Admin') && @practice.save
+        if (current_user.role == 'Team Admin') && @practice.save
             # On successful save operation, redirect to the new practice's page
             redirect_to @practice
         else
@@ -36,7 +36,7 @@ class PracticesController < ApplicationController
     # Edit an existing practice
     def edit
         @practice = Practice.find(params[:id])
-        unless (Current_user.role == 'Team Admin') && (Current_user.team_id == @practice.team_id)
+        unless (current_user.role == 'Team Admin') && (current_user.team_id == @practice.team_id)
             redirect_to :index
         end
     end
@@ -45,7 +45,7 @@ class PracticesController < ApplicationController
     def update
         @practice = Practice.find(params[:id])
 
-        if (Current_user.role == 'Team Admin' && Current_user.team_id == @practice.team_id) && @practice.save
+        if (current_user.role == 'Team Admin' && current_user.team_id == @practice.team_id) && @practice.save
             # On successful update operation, redirect to the practice's page
             redirect_to @practice
         else
@@ -57,7 +57,7 @@ class PracticesController < ApplicationController
     # Display a practice to team members or to referees/sysadmins only
     def show
         @practice = Practice.find(params[:id])
-        unless ((Current_user.team_id == @practice.team_id) || (Current_user.role == 'Referee' || Current_user.role == 'System Admin'))
+        unless ((current_user.team_id == @practice.team_id) || (current_user.role == 'Referee' || current_user.role == 'System Admin'))
             redirect_to root_path
         end
     end
@@ -65,7 +65,7 @@ class PracticesController < ApplicationController
     # Delete an existing practice (for a DELETE request)
     def destroy
         @practice = Practice.find(params[:id])
-        if ((Current_user.team_id == @practice.team_id && Current_user.role == 'Team Admin') || (Current_user.role == 'System Admin'))
+        if ((current_user.team_id == @practice.team_id && current_user.role == 'Team Admin') || (current_user.role == 'System Admin'))
             @practice.destroy
         end
 

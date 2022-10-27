@@ -6,7 +6,7 @@ class GamesController < ApplicationController
 
     # Enter data for a new game
     def new
-        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+        if current_user.role == 'Referee' || current_user.role == 'System Admin'
             # Create a new instance of a game
             @game = Game.new
         else
@@ -18,7 +18,7 @@ class GamesController < ApplicationController
     def create
         @game = Game.new(game_params)
 
-        if (Current_user.role == 'Referee' || Current_user.role == 'System Admin') && @game.save
+        if (current_user.role == 'Referee' || current_user.role == 'System Admin') && @game.save
             # On successful save operation, redirect to the new game's page
             redirect_to @game
         else
@@ -29,7 +29,7 @@ class GamesController < ApplicationController
 
     # Edit an existing game
     def edit
-        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+        if current_user.role == 'Referee' || current_user.role == 'System Admin'
             @game = Game.find(params[:id])
         else
             redirect_to :index
@@ -40,7 +40,7 @@ class GamesController < ApplicationController
     def update
         @game = Game.find(params[:id])
 
-        if (Current_user.role == 'Referee' || Current_user.role == 'System Admin') && @game.save
+        if (current_user.role == 'Referee' || current_user.role == 'System Admin') && @game.save
             # On successful update operation, redirect to the game's page
             redirect_to @game
         else
@@ -56,7 +56,7 @@ class GamesController < ApplicationController
 
     # Delete an existing game (for a DELETE request)
     def destroy
-        if Current_user.role == 'Referee' || Current_user.role == 'System Admin'
+        if current_user.role == 'Referee' || current_user.role == 'System Admin'
             @game = Game.find(params[:id])
             @game.destroy
         end

@@ -2,13 +2,14 @@
 
 
 <br>
-<%= current_user.id%>
+<p> user id : <%= current_user.id%></p>
+
 <br>
-<%= current_user.role%>
+<p> role: <%= current_user.role%> </p>
 <br>
-<%= current_user.username%>
+<p> username: <%= current_user.username%></p>
 <br>
-<%= current_user.email%>
+<p> email: <%= current_user.email%></p>
 
 <br>
 
@@ -18,5 +19,5 @@
 <%= form_with scope: :patch, url: :change_role do |form| %>
     <%= form.text_field :role %>
     <input name="_method" type="hidden" value="put" />
-    <%= form.submit%>
+    <%= form.submit "Change Role" %>
 <%end%>

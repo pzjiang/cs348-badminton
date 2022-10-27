@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   # Create default resource sets for all the tables
   resources :games
   resources :challenges
-  resources :team
-  resources :practice
+  resources :teams
+  resources :practices
   resources :practice_attendances
   resources :game_attendances
   resources :messages

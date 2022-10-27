@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-    before_action :require_login
+    # before_action :require_login
     # add to login:
     # skip_before_filter :require_login
     private

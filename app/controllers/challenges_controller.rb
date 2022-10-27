@@ -6,7 +6,7 @@ class ChallengesController < ApplicationController
 
     # Enter data for a new challenge
     def new
-        if Current_user.role == 'Team Admin'
+        if current_user.role == 'Team Admin'
             # Create a new instance of a challenge
             @challenge = Challenge.new
         else
@@ -17,7 +17,7 @@ class ChallengesController < ApplicationController
     # Create a new challenge (from challenges#new). Only available to team admins.
     def create
         @challenge = Challenge.new(challenge_params)
-        @challenge.challenger_id = Current_user.team_id # Populate challenger_id
+        @challenge.challenger_id = current_user.team_id # Populate challenger_id
 
         if Current_user.role == 'Team Admin' && @challenge.save
             # On successful save operation, redirect to the new challenge's page
@@ -31,7 +31,7 @@ class ChallengesController < ApplicationController
     # Edit an existing challenge
     def edit
         # Only these users can modify challenges
-        if (Current_user.role == 'Team Admin' && Current_user.team_id == challenger_id) || Current_user.role == 'System Admin'
+        if (current_user.role == 'Team Admin' && current_user.team_id == challenger_id) || current_user.role == 'System Admin'
             @challenge = Challenge.find(params[:id])
         else
             redirect_to :index
@@ -41,11 +41,11 @@ class ChallengesController < ApplicationController
     # Update an existing challenge (from challenges#edit)
     def update
         @challenge = Challenge.find(params[:id])
-        if Current_user.role == 'Team Admin'
+        if current_user.role == 'Team Admin'
             @challenge.challenger_id = Current_user.team_id
         end
 
-        if (Current_user.role == 'Team Admin' || Current_user.role == 'System Admin') && @challenge.save
+        if (current_user.role == 'Team Admin' || current_user.role == 'System Admin') && @challenge.save
             # On successful update operation, redirect to the challenge's page
             redirect_to @challenge
         else

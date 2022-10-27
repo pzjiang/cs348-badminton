@@ -4,7 +4,7 @@ class Practice_attendanceAttendancesController < ApplicationController
         @practice = Practice.find(params[:practice_id])
         @practice_attendance = @practice.practice_attendances.create(practice_attendance_params)
 
-        if (Current_user.role == 'Team Admin' && Current_user.team_id == @practice.team_id) && @practice_attendance.save
+        if (current_user.role == 'Team Admin' && current_user.team_id == @practice.team_id) && @practice_attendance.save
             # On successful save operation, redirect to the practice page
             redirect_to @practice
         else
@@ -20,7 +20,7 @@ class Practice_attendanceAttendancesController < ApplicationController
         @practice = Practice.find(params[:practice_id])
         @practice_attendance = @practice.practice_attendances.find(params[:id])
         
-        if ((Current_user.team_id == @practice.team_id && Current_user.role == 'Team Admin'))
+        if ((current_user.team_id == @practice.team_id && current_user.role == 'Team Admin'))
             @practice_attendance.destroy
         end
 

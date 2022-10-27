@@ -19,7 +19,7 @@ class ChallengesController < ApplicationController
         @challenge = Challenge.new(challenge_params)
         @challenge.challenger_id = current_user.team_id # Populate challenger_id
 
-        if Current_user.role == 'Team Admin' && @challenge.save
+        if current_user.role == 'Team Admin' && @challenge.save
             # On successful save operation, redirect to the new challenge's page
             redirect_to @challenge
         else
@@ -42,7 +42,7 @@ class ChallengesController < ApplicationController
     def update
         @challenge = Challenge.find(params[:id])
         if current_user.role == 'Team Admin'
-            @challenge.challenger_id = Current_user.team_id
+            @challenge.challenger_id = current_user.team_id
         end
 
         if (current_user.role == 'Team Admin' || current_user.role == 'System Admin') && @challenge.save
@@ -63,13 +63,13 @@ class ChallengesController < ApplicationController
     def destroy
         @challenge = Challenge.find(params[:id])
         # System admins can fully delete challenges
-        if Current_user.role == 'System Admin'
+        if current_user.role == 'System Admin'
             @challenge.destroy
         # Team admins can reject or withdraw a challenge
-        elsif Current_user.role == 'Team Admin'
-            if Current_user.team_id == challenger_id
+        elsif current_user.role == 'Team Admin'
+            if current_user.team_id == challenger_id
                 @challenge.status = 'Withdrawn'
-            elsif Current_user.team_id == receiver_id
+            elsif current_user.team_id == receiver_id
                 @challenge.status = 'Rejected'
             else
                 redirect_to :index

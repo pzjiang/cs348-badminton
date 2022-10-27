@@ -6,7 +6,7 @@ class TeamsController < ApplicationController
 
     # Enter data for a new team
     def new
-        if Current_user.role == 'System Admin'
+        if current_user.role == 'System Admin'
             # Create a new instance of a team
             @team = Team.new
         else
@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
     def create
         @team = Team.new(team_params)
 
-        if (Current_user.role == 'System Admin') && @team.save
+        if (current_user.role == 'System Admin') && @team.save
             # On successful save operation, redirect to the new team's page
             redirect_to @team
         else
@@ -29,7 +29,7 @@ class TeamsController < ApplicationController
 
     # Edit an existing team
     def edit
-        if Current_user.role == 'System Admin' || (Current_user.role == 'Team Admin' && params[:id] == Current_user.team_id)
+        if current_user.role == 'System Admin' || (current_user.role == 'Team Admin' && params[:id] == current_user.team_id)
             @team = Team.find(params[:id])
         else
             redirect_to :index
@@ -41,7 +41,7 @@ class TeamsController < ApplicationController
         @team = Team.find(params[:id])
         
         # System Admins and appropriate Team Admins can edit a team
-        if (Current_user.role == 'System Admin' || (Current_user.role == 'Team Admin' && params[:id] == Current_user.team_id)) && @team.save
+        if (current_user.role == 'System Admin' || (current_user.role == 'Team Admin' && params[:id] == current_user.team_id)) && @team.save
             # On successful update operation, redirect to the team's page
             redirect_to @team
         else
@@ -62,7 +62,7 @@ class TeamsController < ApplicationController
 =begin
     # Delete an existing team (for a DELETE request)
     def destroy
-        if Current_user.role == 'System Admin'
+        if current_user.role == 'System Admin'
             @team = Team.find(params[:id])
             @team.destroy
             # TODO: Handle users on this team

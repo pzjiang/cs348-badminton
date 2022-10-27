@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   resources :messages
   resources :users
 
+
+  put "/changerole", to: "users#change_role", as: :change_role
+
   # TODO
 
   # user

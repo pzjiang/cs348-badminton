@@ -1,4 +1,14 @@
+<h1> Default page seen after logging in </h1>
+<% if !user_signed_in?%>
 <%= link_to "Log in here", "/users/sign_in"%> 
+
+<%end%>
+<br>
 <% if user_signed_in? %>
  <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link"%>
+<br>
+<%= link_to "Profile Page", current_user, class:"btn btn-sucess" %>
+<br>
+
+
 <% end %>

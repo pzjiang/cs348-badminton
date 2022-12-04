@@ -1,1 +1,12 @@
 <p> here list all games across all teams </p>
+
+
+<%= @games.each do |game|%> 
+    <h4> game info</h4>
+    <p> winner id: <%= game.winner_id%></p>
+    <p> loser id: <%= game.loser_id%></p>
+    <p> location: <%= game.location%> </p>
+    <%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure you wish to delete this game?' }, class:"btn btn-danger" %>
+    <hr>
+<%end%>
+

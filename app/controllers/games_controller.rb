@@ -58,11 +58,16 @@ class GamesController < ApplicationController
     def destroy
         if current_user.role == 'Referee' || current_user.role == 'System Admin'
             @game = Game.find(params[:id])
-            @game.destroy
+            if @game.destroy
+                respond_to do |format|
+                    format.html { redirect_to games_url, notice: "Game was successfully destroyed." }
+                    format.json { head :no_content }
+                end
+            end
         end
 
         # Redirect to the games index
-        redirect_to :index
+        
     end
 
     # Enforce integrity of game input data

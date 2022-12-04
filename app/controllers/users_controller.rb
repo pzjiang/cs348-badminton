@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     end
     def show
         @user = current_user
+        @team = Team.find(current_user.team_id)
     end
 
     def change_role

@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2022_10_17_175644) do
 
   create_table "challenges", force: :cascade do |t|
     t.integer "challenger_id"
-    t.integer "receiver_id"
+    t.integer "receiver_id" 
     t.string "status"
     t.integer "game_id"
     t.datetime "date_issued"

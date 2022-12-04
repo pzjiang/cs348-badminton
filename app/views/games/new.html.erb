@@ -1,1 +1,40 @@
 <p> create new game here</p>
+
+
+<%= form_with(model: @game) do |form| %>
+  <% if @game.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@game.errors.count, "error") %> prohibited this attend from being saved:</h2>
+
+      <ul>
+        <% @game.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br>
+
+  <div class="field form-group" >
+    <%= form.text_field :location, class: "form-control", placeholder: "location of game" %>
+    <%= form.hidden_field :winner_id, value: 1%>
+    <%= form.hidden_field :loser_id, value: 2%>
+    <br>
+    winner score: <%= form.number_field :winner_score, class: "form-control" %>
+    <br>
+    loser score: <%= form.number_field :loser_score, class: "form-control" %>
+    <br>
+    date of game: <%= form.date_field :date, class: "form-control"%>
+
+  </div>
+
+
+  <br>
+
+    <div>
+        <%= form.submit "Create Game", class:"btn btn-primary" %>
+    </div>
+   
+
+<% end %>

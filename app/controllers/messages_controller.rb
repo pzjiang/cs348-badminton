@@ -25,11 +25,12 @@ class MessagesController < ApplicationController
         if (@message.team_id != 0 && (current_user.role == 'Player' || current_user.role == 'Team Admin'))
             @message.team_id = current_user.team_id
         end
+        @team  = Team.find(current_user.team_id)
         
         # There are no role restrictions on sending messages in general
         if @message.save
             # On successful save operation, redirect to the new message's page
-            redirect_to @message
+            redirect_to @team
         else
             # On a failure, redirect to new
             render :new, status: :unprocessable_entity

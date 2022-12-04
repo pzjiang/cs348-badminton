@@ -14,7 +14,9 @@
 <br>
 
 <%= link_to "home page", "/", class: "btn btn-sucess" %>
-
+<br>
+<%= link_to "team page", @team, class: "btn btn-sucess" %> 
+<br>
 
 <%= form_with scope: :patch, url: :change_role do |form| %>
     <%= form.text_field :role %>

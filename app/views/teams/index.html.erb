@@ -3,9 +3,10 @@
 
 <%@teams.each do |team|%>
     <h4> Team Section</h4>
-    <%= team.name%>
+    <%= link_to team.name, team%>
     <br>
     <%= team.location%>
     <br>
+    <%= %>
     <hr>
 <%end%>

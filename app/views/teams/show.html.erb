@@ -14,25 +14,27 @@
     </b>
 <% end %>
 
-<h3>Message List: </h3> <br>
+<% if current_user.team_id == @team.id%>
+    <h3>Message List: </h3> <br>
+    <% @messages.each do |message| %>
+        <b>
+            <%= message.body%> <br>
+            <%= message.status %> <br>
+            <%= message.user_id%> <br>
+            <%= message.created_at %> <br>
+        </b>
+    <% end %>
+    <%= link_to 'Send a new message', new_message_path, class:"btn btn-secondary"%>
 
-<% @messages.each do |message| %>
-    <b>
-        <%= message.body%> <br>
-        <%= message.status %> <br>
-        <%= message.user_id%> <br>
-        <%= message.created_at %> <br>
-    </b>
-<% end %>
 
 
-<%= link_to 'Send a new message', new_message_path, class:"btn btn-secondary"%>
+    <h3>Practice List:</h3>
 
-<h3>Practice List:</h3>
+    <%= @practices.each do |practice| %>
+        <b>
+            <%= practice.date %><br>
+            <%= practice.location %> <br>
+        </b>
+    <% end %>
 
-<%= @practices.each do |practice| %>
-    <b>
-        <%= practice.date %><br>
-        <%= practice.location %> <br>
-    </b>
-<% end %>
+<%end%>

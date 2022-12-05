@@ -16,7 +16,8 @@ Rails.application.routes.draw do
 
 
   put "/changerole", to: "users#change_role", as: :change_role
-
+  get "/join_req/:id", to: "join_reqs#new", as: :new_join_req
+  post "/join_req", to: "join_reqs#create", as: :create_join_req
   # TODO
 
   # user

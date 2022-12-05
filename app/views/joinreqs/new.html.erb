@@ -1,0 +1,33 @@
+<p> Send a message to your team</p>
+
+<%= form_with(model: @join_req) do |form| %>
+  <% if @join_req.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@join_req.errors.count, "error") %> prohibited this join req from being saved:</h2>
+
+      <ul>
+        <% @join_req.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br>
+
+  <div class="field form-group" >
+    <%= form.text_field :body, class:"form-control", placeholder:"Message Body"%>
+    <%= form.hidden_field :status, value: "Pending"%>
+    <%= form.hidden_field :team_id, value: @team.id%>
+    <%= form.hidden_field :status, value: "Sent"%>
+  </div>
+
+
+  <br>
+
+    <div>
+        <%= form.submit "Request to join", class:"btn btn-primary" %>
+    </div>
+
+
+<% end %>

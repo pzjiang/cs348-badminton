@@ -8,14 +8,12 @@ class JoinReqsController < ApplicationController
 
     def create
         @join_req = JoinReq.create(join_req_params)
+        @user = User.find(current_user.id)
         if @join_req.save
-            redirect_to @join_req
+            redirect_to @user
         else
             render :new, status: :unprocessable_entity
-    end
-
-    def show
-        @join_req = JoinReq.find(params[:id])
+        end
     end
 
 

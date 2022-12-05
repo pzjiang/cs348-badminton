@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_04_235723) do
+ActiveRecord::Schema.define(version: 2022_12_05_001428) do
 
   create_table "challenges", force: :cascade do |t|
     t.integer "challenger_id"
@@ -50,7 +50,9 @@ ActiveRecord::Schema.define(version: 2022_12_04_235723) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["team_id"], name: "index_join_reqs_on_team_id"
+    t.index ["user_id"], name: "index_join_reqs_on_user_id"
   end
 
   create_table "messages", force: :cascade do |t|

@@ -26,4 +26,16 @@ class UsersController < ApplicationController
         end
         
     end
+
+    def join_accept
+        @user = User.find(params[:patch][:id])
+        @team = Team.find(params[:patch][:team_id])
+        @user.team_id = @team.id
+        @user.role = "Player"
+        if @user.save
+            redirect_to @team
+        else
+
+        end
+    end
 end

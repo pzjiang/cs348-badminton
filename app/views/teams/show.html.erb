@@ -81,8 +81,27 @@
 
 <% if current_user.role == "System Admin" || current_user.role == "Team Admin"%>
     <%@join_reqs.each do |ind|%>
-
+        <%if ind.status == "Pending"%>
+            <%ind.req_name%> would like to join your team
+            <br>
+            <%= form_with scope: :patch, url: :join_accept do |form| %>
+                <%= form.hidden_field :user_id, value: ind.user_id %>
+                <%= form.hidden_field :team_id, value: @team.id%>
+                <%= form.hidden_field :id, value: ind.id%>
+                <%= form.hidden_field :status, value: "Accept"%>
+                <input name="_method" type="hidden" value="put" />
+                <%= form.submit "Accept" %>
+            <%end%>
+            <br>
+            <%= form_with scope: :patch, url: :join_accept do |form| %>
+                <%= form.hidden_field :user_id, value: ind.user_id %>
+                <%= form.hidden_field :team_id, value: @team.id%>
+                <%= form.hidden_field :id, value: ind.id%>
+                <%= form.hidden_field :status, value: "Reject"%>
+                <input name="_method" type="hidden" value="put" />
+                <%= form.submit "Reject" %>
+            <%end%>
+        <%end%>
     <%end%>
-
 <%end%>
 

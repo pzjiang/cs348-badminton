@@ -29,14 +29,23 @@ class UsersController < ApplicationController
     end
 
     def join_accept
-        @user = User.find(params[:patch][:id])
+        @join_req = JoinReq.find(params[:patch][:id])
+        @user = User.find(params[:patch][:user_id])
         @team = Team.find(params[:patch][:team_id])
+
+        if params[:paptch][:status] == "Reject"
+            @join_req.status = "Deleted"
+            @join_req.save
+            redirect_to @team            
+        end
+
+       
         @user.team_id = @team.id
         @user.role = "Player"
         if @user.save
+            @join_req.status = "Accepted"
+            @join_req.save
             redirect_to @team
-        else
-
         end
     end
 end

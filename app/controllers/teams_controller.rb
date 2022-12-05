@@ -53,10 +53,11 @@ class TeamsController < ApplicationController
     # Display a team
     def show
         @team = Team.find(params[:id])
-        @members = User.where(team_id: params[:id])
+        @members = User.where(team_id: params[:id]).all
         @messages = Message.where(team_id: params[:id]).where(status: 'Sent')
         @practices = @team.practices
         @join_req = JoinReq.new
+        @join_reqs = JoinReq.where(team_id: @team.id).all
     end
 
     # Destroying a team would completely screw with game records and users. If an admin wants to destroy a team, just kick all of its members.

@@ -8,10 +8,12 @@
 <br>
 
 <% @members.each do |member| %>
+    <hr>
     <b>
         <%= member.username %> <br>
         <%= member.email %> <br>
     </b>
+    <hr>
 <% end %>
 
 <% if current_user.team_id == @team.id%>
@@ -41,7 +43,7 @@
 
 <% if current_user.team_id != @team.id %>
 
-    <p> Request to join this team <%@team.name %></p>
+    Request to join this team <%= @team.name %>
 
     <%= form_with(model: @join_req) do |form| %>
     <% if @join_req.errors.any? %>
@@ -59,7 +61,7 @@
     <br>
 
     <div class="field form-group" >
-        <%# <%= form.text_field :body, class:"form-control", placeholder:"Join request Body"%> %>
+        <%# <%= form.text_field :body, class:"form-control", placeholder:"Join request Body"%>
         <%= form.hidden_field :user_id, value: current_user.id%>
         <%= form.hidden_field :req_name, value: current_user.email%>
         <%= form.hidden_field :status, value: "Pending"%>
@@ -82,7 +84,7 @@
 <% if current_user.role == "System Admin" || current_user.role == "Team Admin"%>
     <%@join_reqs.each do |ind|%>
         <%if ind.status == "Pending"%>
-            <%ind.req_name%> would like to join your team
+            <%= ind.req_name%> would like to join your team
             <br>
             <%= form_with scope: :patch, url: :join_accept do |form| %>
                 <%= form.hidden_field :user_id, value: ind.user_id %>

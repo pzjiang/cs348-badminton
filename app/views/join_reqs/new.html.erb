@@ -1,4 +1,4 @@
-<p> Send a message to your team</p>
+<p> Request to join this team <%@team.name %></p>
 
 <%= form_with(model: @join_req) do |form| %>
   <% if @join_req.errors.any? %>

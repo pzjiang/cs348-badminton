@@ -1,12 +1,20 @@
-<p> here list all games across all teams </p>
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
+
+<h1> All Games </h1>
 
 
-<%= @games.each do |game|%> 
+<%= @games.each do |game|%>
     <h4> game info</h4>
-    <p> winner id: <%= game.winner_id%></p>
-    <p> loser id: <%= game.loser_id%></p>
-    <p> location: <%= game.location%> </p>
+    <p> Home Team id: <%= game.winner_id%></p>
+    <p> Away Team id: <%= game.loser_id%></p>
+    <p> Location: <%= game.location%> </p>
     <%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure you wish to delete this game?' }, class:"btn btn-danger" %>
     <hr>
 <%end%>
+
+<%= link_to "Create Game", new_game_path%>
 

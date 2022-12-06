@@ -20,6 +20,7 @@
     <li>
     <b>
         <%= link_to member.username, member %> </b> <br>
+        <%= member.role %> <br>
         <%= member.email %> <br>
     </li>
 <% end %>
@@ -43,13 +44,14 @@
 
 
     <h3>Practice List:</h3>
-
-    <%= @practices.each do |practice| %>
-        <b>
-            <%= practice.date %><br>
-            <%= practice.location %> <br>
-        </b>
+    <ul>
+    <% @practices.each do |practice| %>
+        <li>
+            Date: <%= practice.date %><br>
+            Location: <%= practice.location %> <br>
+        </li>
     <% end %>
+    </ul>
     <%= link_to "Add Practice", new_practice_path %>
 
 <%end%>

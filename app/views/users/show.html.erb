@@ -4,7 +4,7 @@
     }
 </style>
 
-<h1> Profile page for users</h1>
+<h1>User Profile</h1>
 
 <br>
 <p> User ID: <%= current_user.id%></p>
@@ -16,7 +16,7 @@
 
 <%= link_to "home page", "/", class: "btn btn-sucess" %>
 <br>
-<%= link_to "team page", @team, class: "btn btn-sucess" %> 
+<%= link_to "team page", @team, class: "btn btn-sucess" %>
 <br>
 
 <%= form_with scope: :patch, url: :change_role do |form| %>

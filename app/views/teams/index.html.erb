@@ -8,12 +8,14 @@
 
 <%@teams.each do |team|%>
     <h4> Team Section</h4>
-    <p>Team Name:</p><%= link_to team.name, team%>
+    <p>Team Name:</p>
+    <%= link_to team.name, team%>
     <br>
-    <p>Team ID:</p><%=team.id>
+    <p>Team ID:</p>
+    <%= team.id%>
     <br>
-    <p>Team Location:</p><%= team.location%>
+    <p>Team Location:</p>
+    <%= team.location%>
     <br>
     <%= %>
-    <hr>
 <%end%>

@@ -1,4 +1,4 @@
-<p> Current teams in the competition</p>
+<h1> Current teams in the competition</h1>
 
 <style>
         body {
@@ -7,15 +7,15 @@
     </style>
 
 <%@teams.each do |team|%>
-    <h4> Team Section</h4>
-    <p>Team Name:</p>
-    <%= link_to team.name, team%>
+    <h4> Team Info</h4>
+    <p>Team Name:
+    <%= link_to team.name, team%></p>
     <br>
-    <p>Team ID:</p>
-    <%= team.id%>
+    <p>Team ID:
+    <%= team.id%></p>
     <br>
-    <p>Team Location:</p>
-    <%= team.location%>
+    <p>Team Location:
+    <%= team.location%></p>
     <br>
     <%= %>
 <%end%>

@@ -4,34 +4,40 @@
     }
 </style>
 
-<h1> This is a page for specific teams</h1>
+<h1> Team Page</h1>
+<%= link_to "Back to teams", "/teams/"%> <br>
+<%= link_to "Home", "/"%>
 <br>
 <h3>Team Name: <%= @team.name %> </h3>
+<h4>Location: <%= @team.location %></h4>
 
 <br>
 
 <h3> Member List: </h3>
-<br>
-
+<hr>
+<ul>
 <% @members.each do |member| %>
-    <hr>
+    <li>
     <b>
-        <%= member.username %> <br>
+        <%= link_to member.username, member %> </b> <br>
         <%= member.email %> <br>
-    </b>
-    <hr>
+    </li>
 <% end %>
+</ul>
+<hr>
 
 <% if current_user.team_id == @team.id%>
-    <h3>Message List: </h3> <br>
+    <h3>Messages: </h3>
+    <ul>
     <% @messages.each do |message| %>
-        <b>
-            <%= message.body%> <br>
-            <%= message.status %> <br>
-            <%= message.user_id%> <br>
-            <%= message.created_at %> <br>
-        </b>
+        <li>
+            <b><%= message.body%> <br></b>
+            Message Status: <%= message.status %> <br>
+            Sender ID: <%= message.user_id%> <br>
+            Sent at <%= message.created_at %> <br>
+        </li>
     <% end %>
+    </ul>
     <%= link_to 'Send a new message', new_message_path, class:"btn btn-secondary"%>
 
 
@@ -44,6 +50,7 @@
             <%= practice.location %> <br>
         </b>
     <% end %>
+    <%= link_to "Add Practice", new_practice_path %>
 
 <%end%>
 

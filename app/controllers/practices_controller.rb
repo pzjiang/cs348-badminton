@@ -16,19 +16,20 @@ class PracticesController < ApplicationController
             # Create a new instance of a practice
             @practice = Practice.new
         else
-            redirect_to :index
+            redirect_to team_path(current_user.team_id)
         end
     end
 
     # Create a new practice (from practices#new)
     def create
         @teamid = current_user.team_id
+        @team = Team.find(@teamid)
         @practice = @team.practices.create(practice_params)
         @practice.team_id = @teamid
 
         if (current_user.role == 'Team Admin') && @practice.save
-            # On successful save operation, redirect to the new practice's page
-            redirect_to @practice
+            # On successful save operation, redirect to the team page
+            redirect_to @team
         else
             # On a failure, redirect to new
             render :new, status: :unprocessable_entity

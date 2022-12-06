@@ -5,8 +5,8 @@ class UsersController < ApplicationController
     def show
         @user = current_user
         @team = Team.find(current_user.team_id)
-        @join_reqs = Join_req.where(user_id: @user.user_id)
-        @practices = Practice_attendance.where(user_id: @user.user_id)
+        @join_reqs = JoinReq.where(user_id: @user.id)
+        @practices = PracticeAttendance.where(user_id: @user.id)
     end
 
     def change_role

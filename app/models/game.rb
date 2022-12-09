@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
 
     has_many :game_attendances, dependent: :destroy
+    has_many :users, :through => :game_attendances, :foreign_key => :game_id
 
     # Ensure that the game is between two teams and that the loser has a lower score
     validates :winner_id, presence: true

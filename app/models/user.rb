@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  
+  has_many :games, :through => :game_attendances, :foreign_key => :user_id
+  has_many :practices, :through => :practice_attendances, :foreign_key => :user_id
   # Enforce valid roles
 
   VALID_ROLES = ['Player','Team Admin','Referee','System Admin']

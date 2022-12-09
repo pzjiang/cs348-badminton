@@ -81,7 +81,7 @@
     <% end %>
 <%end%>
 
-<% if current_user.role == "System Admin" || current_user.role == "Team Admin"%>
+<% if current_user.role == "System Admin" || (current_user.role == "Team Admin" && current_user.team_id == @team.id)%>
     <%@join_reqs.each do |ind|%>
         <%if ind.status == "Pending"%>
             <%= ind.req_name%> would like to join your team
@@ -107,3 +107,41 @@
     <%end%>
 <%end%>
 
+
+<% if (current_user.team_id == @team.id && current_user.role == "Team Admin") || current_user.role == "System Admin" %>
+
+    Create a new practice for the team name: <%= @team.name %>
+
+    <%= form_with(model: @practice) do |form| %>
+    <% if @practice.errors.any? %>
+        <div id="error_explanation">
+        <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this practice from being saved:</h2>
+
+        <ul>
+            <% @practice.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <br>
+
+    <div class="field form-group" >
+        <%# <%= form.text_field :body, class:"form-control", placeholder:"Join request Body"%>
+        <%= form.text_field :location, palceholder: "Location"%>
+        <%= form.datetime_field :date%>
+        <%= form.hidden_field :team_id, value: @team.id%>
+        
+    </div>
+
+
+    <br>
+
+        <div>
+            <%= form.submit "Create new Practice", class:"btn btn-primary" %>
+        </div>
+
+
+    <% end %>
+<%end%>

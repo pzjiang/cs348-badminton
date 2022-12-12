@@ -1,49 +1,102 @@
-<h1> This is a page for specific teams</h1>
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
+
+<h1> Team Page</h1>
+<%= link_to "Back to teams", "/teams/"%> <br>
+<%= link_to "Home", "/"%>
 <br>
 <h3>Team Name: <%= @team.name %> </h3>
+<h4>Location: <%= @team.location %></h4>
 
 <br>
 
-<h3> Member List: </h3>
-<br>
-
+<h2> Member List: </h2>
+<hr>
+<ul>
 <% @members.each do |member| %>
-    <hr>
+    <li>
     <b>
-        <%= member.username %> <br>
+        <%= link_to member.username, member %> </b> <br>
+        <%= member.role %> <br>
         <%= member.email %> <br>
-    </b>
-    <hr>
+    </li>
 <% end %>
+</ul>
+<hr>
 
+<h3> Victories: <%= @victories%>, Defeats: <%= @defeats%></h3>
+
+<br>
+<h2> Home Games:</h2>
+<br>
+
+<% @homeGames.each do |homeGame| %>
+    <hr>
+        <p> Opposing team: <%= homeGame[1].name%> </p>
+        <p>Scoreboard (home-team : awy-team): <%=homeGame[0].winner_score %> : <%=homeGame[0].loser_score %> </p>
+        <%= link_to "See game details", homeGame[0]%>
+    <hr>
+<%end%>
+
+<br>
+
+<h2> Away Games:</h2>
+<br>
+
+<% @awayGames.each do |awayGame| %>
+    <hr>
+        <p> Opposing team: <%= awayGame[1].name%> </p>
+        <p>Scoreboard (home-team : away-team): <%=awayGame[0].winner_score %> : <%=awayGame[0].loser_score %> </p>
+        <%= link_to "See game details", awayGame[0]%>
+    <hr>
+<%end%>
+
+
+
+<br>
 <% if current_user.team_id == @team.id%>
-    <h3>Message List: </h3> <br>
+    <h2>Messages: </h2>
+    <ul>
     <% @messages.each do |message| %>
-        <b>
-            <%= message.body%> <br>
-            <%= message.status %> <br>
-            <%= message.user_id%> <br>
-            <%= message.created_at %> <br>
-        </b>
+        <li>
+            <b><%= message.body%> <br></b>
+            Message Status: <%= message.status %> <br>
+            Sender ID: <%= message.user_id%> <br>
+            Sent at <%= message.created_at %> <br>
+        </li>
     <% end %>
+    </ul>
     <%= link_to 'Send a new message', new_message_path, class:"btn btn-secondary"%>
 
+    <br>
 
 
-    <h3>Practice List:</h3>
 
-    <%= @practices.each do |practice| %>
-        <b>
-            <%= practice.date %><br>
-            <%= practice.location %> <br>
-        </b>
+    <h2>Practice List:</h2>
+    <ul>
+    <% @practices.each do |practice| %>
+        <li>
+            Date: <%= practice[0].date %><br>
+            Location: <%= practice[0].location %> <br>
+            <% if practice[1] == true%>
+                <%= button_to "Attend Practice", "../practice_attends/new", params: { user_id: current_user.id, practice_id: practice[0].id, team_id: @team.id} %>
+            <%end%>
+            <% if practice[1] == false%>
+                <%= link_to "Practice Details", practice[0]%>
+            <%end%>
+            <br>
+        </li>
     <% end %>
+    </ul>
 
 <%end%>
 
 <% if current_user.team_id != @team.id %>
 
-    Request to join this team <%= @team.name %>
+    <h3> You are not a member of this team. Request to join <%= @team.name %> here</h3>
 
     <%= form_with(model: @join_req) do |form| %>
     <% if @join_req.errors.any? %>
@@ -67,7 +120,6 @@
         <%= form.hidden_field :status, value: "Pending"%>
         <%= form.hidden_field :req_role, value: "Player"%>
         <%= form.hidden_field :team_id, value: @team.id%>
-        <%= form.hidden_field :status, value: "Sent"%>
     </div>
 
 
@@ -80,6 +132,7 @@
 
     <% end %>
 <%end%>
+<br>
 
 <% if current_user.role == "System Admin" || (current_user.role == "Team Admin" && current_user.team_id == @team.id)%>
     <%@join_reqs.each do |ind|%>
@@ -107,10 +160,11 @@
     <%end%>
 <%end%>
 
+<br>
 
 <% if (current_user.team_id == @team.id && current_user.role == "Team Admin") || current_user.role == "System Admin" %>
 
-    Create a new practice for the team name: <%= @team.name %>
+    Create a new practice for <%= @team.name %>
 
     <%= form_with(model: @practice) do |form| %>
     <% if @practice.errors.any? %>
@@ -129,8 +183,9 @@
 
     <div class="field form-group" >
         <%# <%= form.text_field :body, class:"form-control", placeholder:"Join request Body"%>
-        <%= form.text_field :location, palceholder: "Location"%>
-        <%= form.datetime_field :date%>
+        Location: <%= form.text_field :location, palceholder: "Location"%>
+        <br>
+        Time: <%= form.datetime_field :date %>
         <%= form.hidden_field :team_id, value: @team.id%>
         
     </div>

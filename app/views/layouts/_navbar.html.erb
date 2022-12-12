@@ -1,0 +1,13 @@
+<div width="100"> 
+    <% if user_signed_in? %>
+        <%= link_to "home page", "/", class: "btn btn-success" %>
+        <%= link_to "list all teams", "/teams", class: "btn btn-success" %>
+        <%= link_to "list all games", "/games", class: "btn btn-success" %>
+        <%= link_to "list all practices", "/practices", class: "btn btn-success" %>
+        <%= link_to "profile page", current_user, class: "btn btn-success"%>
+        Current User: <%= current_user.username%>
+    <%end%>
+    
+
+
+</div>

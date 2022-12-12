@@ -2,9 +2,12 @@ class GameAttendancesController < ApplicationController
     # Create a new game_attendance (from game_attendances#new)
     def create
         @game = Game.find(params[:game_id])
-        @game_attendance = @game.game_attendances.create(game_attendance_params)
-
-        if (current_user.role == 'Team Admin' && current_user.team_id == @game.team_id) && @game_attendance.save
+        @game_attendance = GameAttendance.new
+        @game_attendance.user_id = params[:user_id]
+        @game_attendance.game_id = params[:game_id]
+        @inTeam = @game.winner_id == current_user.team_id || @game.loser_id == current_user.team_id
+        
+        if  @inTeam && @game_attendance.save
             # On successful save operation, redirect to the game page
             redirect_to @game
         else

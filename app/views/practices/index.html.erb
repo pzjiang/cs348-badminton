@@ -1,1 +1,20 @@
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
+
+
 <h1>Page to display all practices across teams </h1>
+
+
+
+<% @practices.each do |practice|%>
+  <hr>
+    <p>Location: <%= practice[0].location%> </p>
+    <p> Date: <%= practice[0].date%> </p>
+    <p> Team name: <%= practice[1]%> </p>
+    <%= link_to "View Practice Details", practice[0]%>
+    <hr>
+<%end%>
+

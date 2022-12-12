@@ -1,0 +1,30 @@
+<h1> Practice creation </h1>
+
+
+<%= form_with(model: @practice) do |form| %>
+  <% if @practice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@practice.errors.count, "error") %> prohibited this attend from being saved:</h2>
+
+      <ul>
+        <% @practice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <br>
+
+  <div> 
+    <%= form.text_field :date, class:"form-control", placeholder:"Date"%>
+    <%= form.text_field :location, class:"form-control", placeholder:"Location"%>
+  </div>
+
+
+    <div>
+        <%= form.submit "Make Practice", class:"btn btn-primary" %>
+    </div>
+
+
+<% end %>

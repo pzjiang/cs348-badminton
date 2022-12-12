@@ -1,21 +1,22 @@
-<h1> Profile page for users</h1>
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
 
+<h1>User Profile</h1>
 
 <br>
-<p> user id : <%= current_user.id%></p>
-
-<br>
-<p> role: <%= current_user.role%> </p>
-<br>
-<p> username: <%= current_user.username%></p>
-<br>
-<p> email: <%= current_user.email%></p>
+<p> User ID: <%= current_user.id%></p>
+<p> Role: <%= current_user.role%> </p>
+<p> Username: <%= current_user.username%></p>
+<p> Email: <%= current_user.email%></p>
 
 <br>
 
 <%= link_to "home page", "/", class: "btn btn-sucess" %>
 <br>
-<%= link_to "team page", @team, class: "btn btn-sucess" %> 
+<%= link_to "team page", @team, class: "btn btn-sucess" %>
 <br>
 
 <%= form_with scope: :patch, url: :change_role do |form| %>
@@ -24,8 +25,8 @@
     <%= form.submit "Change Role" %>
 <%end%>
 
-
-
+<br>
+<h1> Practices Attended:</h1>
 <% @practices.each do |practice| %>
     <hr>
     <br>
@@ -35,5 +36,17 @@
     <br>
     <%= practice.date%>
     <br>
+    <hr>
+<%end%>
+
+<br>
+
+<h1> Games Attended:</h1>
+<br>
+
+<% @games.each do |game|%>
+    <hr>
+    <p> Home Team <%= link_to game[1].name, game[1] %> vs Away Team <%= link_to game[2].name, game[2]%></p>
+    <p> Score: <%= game[0].winner_score%> : <%= game[0].loser_score%> </p>
     <hr>
 <%end%>

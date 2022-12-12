@@ -1,1 +1,26 @@
-This is a page for a specific practice
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
+<%= link_to "Back to team page", @team%>
+<h1> Practice Details: </h1>
+<p>Location: <%= @practice.location%> </p>
+<p>Time of Practice: <%= @practice.date%> </p>
+<br>
+<h1> Attendees of practice</h1>
+<br>
+<% @attendees.each do |attendee|%>
+  <p>Name: <%=attendee.username %>, Email: <%= attendee.email%></p>
+<%end%>
+
+<br>
+
+<% if @attended == false%>
+  <p> Did you attend this practice? if so click below </p>
+  <%= button_to "Attend Practice", "../practice_attends/new", params: { user_id: current_user.id, practice_id: @practice.id, team_id: @practice.team_id} %>
+<%end%>
+
+<% if @attended == true%>
+  <h4> It looks like you came to this practice! </h4>
+<%end%>

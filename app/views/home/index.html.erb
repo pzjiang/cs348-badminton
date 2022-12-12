@@ -1,4 +1,9 @@
-<h1> Default page seen after logging in </h1>
+<h1> Welcome to the Badminton Tournament! </h1>
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
 <% if !user_signed_in?%>
 <%= link_to "Log in here", "/users/sign_in"%> 
 
@@ -9,6 +14,5 @@
 <br>
 <%= link_to "Profile Page", current_user, class:"btn btn-sucess" %>
 <br>
-
 
 <% end %>

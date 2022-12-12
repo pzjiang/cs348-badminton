@@ -1,12 +1,22 @@
-<p> Page with a list of all current teams</p>
+<h1> Current teams in the competition</h1>
 
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
 
 <%@teams.each do |team|%>
-    <h4> Team Section</h4>
-    <%= link_to team.name, team%>
-    <br>
-    <%= team.location%>
-    <br>
-    <%= %>
-    <hr>
+    <h4> Team Info</h4>
+    <p>Team Name:
+    <%= link_to team[0].name, team[0]%></p>
+    <p>Team ID:
+    <%= team[0].id%></p>
+    <p>Team Location:
+    <%= team[0].location%></p>
+    <p> Team member count: <%= team[1]%></p>
+<%end%>
+
+<% if current_user.role == "System Admin" %>
+  <%= link_to "Create Team (Admins Only)", new_team_path%>
 <%end%>

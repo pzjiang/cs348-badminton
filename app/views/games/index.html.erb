@@ -1,12 +1,29 @@
-<p> here list all games across all teams </p>
+<style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/pastel-abstract-nebula_91008-229.jpg?w=2000');
+    }
+</style>
+
+<h1> All Games </h1>
 
 
-<%= @games.each do |game|%> 
-    <h4> game info</h4>
-    <p> winner id: <%= game.winner_id%></p>
-    <p> loser id: <%= game.loser_id%></p>
-    <p> location: <%= game.location%> </p>
-    <%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure you wish to delete this game?' }, class:"btn btn-danger" %>
+<% @games.each do |game|%>
+    <h4> <%= link_to "game info" , game[0]%></h4>
+    <p> Home Team: <%= link_to game[1].name, game[1]%></p>
+    <p> Away Team: <%= link_to game[2].name, game[2]%></p>
+    <p> Home Team score: <%= game[0].winner_score%></p>
+    <p> Away Team Score: <%= game[0].loser_score%></p>
+    <p> Location: <%= game[0].location%> </p>
+    <p> Date: <%= game[0].date%> </p>
+    <% if current_user.role == "System Admin" %>
+      <%= link_to 'Admin Privelage: Invalidate Game', game[0], method: :delete, data: { confirm: 'Are you sure you wish to delete this game?' }, class:"btn btn-danger" %>
+    <%end%>
     <hr>
 <%end%>
 
+<br>
+
+<%= link_to "Create Game", new_game_path%>
+
+<br>
+<br>

@@ -1,10 +1,12 @@
-class Practice_attendanceAttendancesController < ApplicationController
+class PracticeAttendancesController < ApplicationController
     # Create a new practice_attendance (from practice_attendances#new)
     def create
-        @practice = Practice.find(params[:practice_id])
-        @practice_attendance = @practice.practice_attendances.create(practice_attendance_params)
+        @practice_attendance = PracticeAttendance.new
+        @practice_attendance.user_id = params[:user_id]
+        @practice_attendance.practice_id = params[:practice_id]
+        @practice = Practice.find(params[:practice_id]) 
 
-        if (current_user.role == 'Team Admin' && current_user.team_id == @practice.team_id) && @practice_attendance.save
+        if @practice_attendance.save
             # On successful save operation, redirect to the practice page
             redirect_to @practice
         else
